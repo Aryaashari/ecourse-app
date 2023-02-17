@@ -1,0 +1,4 @@
+CREATE TABLE course_categories (
+    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name VARCHAR
+) ENGINE=InnoDB;

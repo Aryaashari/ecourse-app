@@ -1,6 +1,7 @@
 CREATE TABLE admin (
-    id BIGINT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    id BIGINT NOT NULL AUTO_INCREMENT,
     name VARCHAR,
     email VARCHAR,
-    password VARCHAR
+    password VARCHAR,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB;
