@@ -1,0 +1,1431 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Ecourse API SPEC",
+        "version": "1"
+    },
+    "servers": [
+        {
+            "url": "https://aryaashari.com/api/v1"
+        }
+    ],
+    "paths": {
+        "/admin/register": {
+            "post": {
+                "tags": ["Admin"],
+                "summary": "Admin Register",
+                "description": "Endpoint for admin register",
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Admin register success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/admin/login": {
+            "post": {
+                "tags": ["Admin"],
+                "summary": "Admin Login",
+                "description": "Endpoint for admin register",
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Admin login success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "_token": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get Users Data",
+                "description": "Endpoint for get users data",
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get users data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Users"],
+                "summary": "Create User",
+                "description": "Endpoint create user",
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create user success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{userId}": {
+            "get": {
+                "tags": ["Users"],
+                "summary": "Get User Details Data",
+                "description": "Endpoint for get user details data",
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "userId",
+                        "description": "User id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get user details data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                },
+                                                "courses": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            },
+                                                            "category": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Users"],
+                "summary": "Update User",
+                "description": "Endpoint update user",
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "userId",
+                        "description": "User id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update user success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "email": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Users"],
+                "summary": "Delete User",
+                "description": "Endpoint delete user",
+                "security": [
+                    {
+                        "auth": []
+                    }
+                ],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "userId",
+                        "description": "User id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete user success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/course/categories": {
+            "get": {
+                "tags": ["Course Categories"],
+                "summary": "Get All Course Categories",
+                "description": "Endpoint for get all course categories",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all course categories success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Course Categories"],
+                "summary": "Create Course Category",
+                "description": "Endpoint for create course category",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create course category success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/course/categories/{categoryId}": {
+            "get": {
+                "tags": ["Course Categories"],
+                "summary": "Get Course Category Details Data",
+                "description": "Endpoint for get course category details data",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "categoryId",
+                        "description": "Category id",
+                        "required": true,
+                        "in": "path"
+                    } 
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get course category details data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "courses": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer"
+                                                            },
+                                                            "title": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Course Categories"],
+                "summary": "Update Course Category",
+                "description": "Endpoint for update course category",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "categoryId",
+                        "description": "Category id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update course category success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Course Categories"],
+                "summary": "Delete Course Category",
+                "description": "Endpoint for delete course category",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "categoryId",
+                        "description": "Category id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete course category success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/courses": {
+            "get": {
+                "tags": ["Courses"],
+                "summary": "Get All Courses",
+                "description": "Endpoint for get all courses",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get all courses success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "integer"
+                                                    },
+                                                    "title": {
+                                                        "type": "string"
+                                                    },
+                                                    "category": {
+                                                        "type": "string"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Courses"],
+                "summary": "Create Course",
+                "description": "Endpoint for create course",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "categoryId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create course success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "categoryId": {
+                                                    "type": "integer"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/courses/{courseId}": {
+            "get": {
+                "tags": ["Courses"],
+                "summary": "Get Course Details Data",
+                "description": "Endpoint for get course details data",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "courseId",
+                        "description": "Course id",
+                        "required": true,
+                        "in": "path"
+                    } 
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Get course details data success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "category": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "users": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer"
+                                                            },
+                                                            "name": {
+                                                                "type": "string"
+                                                            },
+                                                            "email": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Courses"],
+                "summary": "Update Course",
+                "description": "Endpoint for update course",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "courseId",
+                        "description": "Course id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "categoryId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update course success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "id": {
+                                                    "type": "string"
+                                                },
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "category": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Courses"],
+                "summary": "Delete Course",
+                "description": "Endpoint for delete course",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    },
+                    {
+                        "name": "courseId",
+                        "description": "Course id",
+                        "required": true,
+                        "in": "path"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Delete course success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/users/courses/access": {
+            "post": {
+                "tags": ["Users Courses Access"],
+                "summary": "Create User Course Access",
+                "description": "Endpoint for create user course access",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "integer"
+                                    },
+                                    "courseId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Create user course access success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "course": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "title": {
+                                                            "type": "string"
+                                                        },
+                                                        "categoryId": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Users Courses Access"],
+                "summary": "Update User Course Access",
+                "description": "Endpoint for update user course access",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "integer"
+                                    },
+                                    "courseId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Update user course access success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object",
+                                            "properties": {
+                                                "user": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "name": {
+                                                            "type": "string"
+                                                        },
+                                                        "email": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "course": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer"
+                                                        },
+                                                        "title": {
+                                                            "type": "string"
+                                                        },
+                                                        "categoryId": {
+                                                            "type": "integer"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Users Courses Access"],
+                "summary": "Delete User Course Access",
+                "description": "Endpoint for delete user course access",
+                "security": [{
+                    "auth": []
+                }],
+                "parameters": [       
+                    {
+                        "name": "APP_TOKEN",
+                        "description": "Token for auth",
+                        "required": true,
+                        "in": "header"
+                    }   
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "integer"
+                                    },
+                                    "courseId": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Delete user course access success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "info": {
+                                            "type": "object",
+                                            "properties": {
+                                                "status": {
+                                                    "type": "integer",
+                                                    "default": "200"
+                                                },
+                                                "message": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        },
+                                        "data": {
+                                            "type": "object"                                       }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "auth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "APP_TOKEN",
+                "description": "Security with JWT token"
+            }
+        }
+        
+    }
+}
