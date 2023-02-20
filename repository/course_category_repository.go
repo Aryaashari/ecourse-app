@@ -7,9 +7,9 @@ import (
 )
 
 type CourseCategoryRepository interface {
-	FindById(context context.Context, transaction *sql.Tx, id int64, courses bool)
-	FindAll(context context.Context, transaction *sql.Tx, courses bool)
-	Insert(context context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory)
-	Update(context context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory)
-	Delete(context context.Context, transaction *sql.Tx, id int64)
+	FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.CourseCategory, error)
+	FindAll(ctx context.Context, transaction *sql.Tx) []domain.CourseCategory
+	Insert(ctx context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory) domain.CourseCategory
+	Update(ctx context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory) domain.CourseCategory
+	Delete(ctx context.Context, transaction *sql.Tx, id int64)
 }
