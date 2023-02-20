@@ -7,11 +7,14 @@ import (
 	api "ecourse-app/model/api/course_category"
 	"ecourse-app/model/domain"
 	"ecourse-app/repository"
+
+	"github.com/go-playground/validator/v10"
 )
 
 type CourseCategoryServiceImpl struct {
 	CourseCategoryRepo repository.CourseCategoryRepository
 	DB                 *sql.DB
+	Validate           *validator.Validate
 }
 
 func (service *CourseCategoryServiceImpl) FindAll(ctx context.Context) []api.CourseCategoryResponse {
@@ -42,6 +45,10 @@ func (service *CourseCategoryServiceImpl) FindAll(ctx context.Context) []api.Cou
 // }
 
 func (service *CourseCategoryServiceImpl) Create(ctx context.Context, request api.CourseCategoryCreateRequest) api.CourseCategoryResponse {
+	// Validation
+	err := service.Validate.Struct(request)
+	helper.PanicError(&err)
+
 	transaction, err := service.DB.Begin()
 	helper.PanicError(&err)
 
@@ -57,6 +64,10 @@ func (service *CourseCategoryServiceImpl) Create(ctx context.Context, request ap
 }
 
 func (service *CourseCategoryServiceImpl) Update(ctx context.Context, request api.CourseCategoryUpdateRequest) api.CourseCategoryResponse {
+	// Validation
+	err := service.Validate.Struct(request)
+	helper.PanicError(&err)
+
 	transaction, err := service.DB.Begin()
 	helper.PanicError(&err)
 
