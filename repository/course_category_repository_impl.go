@@ -28,7 +28,7 @@ func FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Course
 
 }
 
-func FindAll(ctx context.Context, transaction *sql.Tx) []domain.CourseCategory {
+func (repository *CourseCategoryRepositoryImpl) FindAll(ctx context.Context, transaction *sql.Tx) []domain.CourseCategory {
 
 	rows, err := transaction.QueryContext(ctx, "SELECT id,name FROM course_categories")
 	helper.PanicError(&err)
@@ -44,7 +44,7 @@ func FindAll(ctx context.Context, transaction *sql.Tx) []domain.CourseCategory {
 
 }
 
-func Insert(ctx context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory) domain.CourseCategory {
+func (repository *CourseCategoryRepositoryImpl) Insert(ctx context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory) domain.CourseCategory {
 
 	result, err := transaction.ExecContext(ctx, "INSERT INTO course_categories(name) VALUES(?)", courseCategory.Name)
 	helper.PanicError(&err)
@@ -57,7 +57,7 @@ func Insert(ctx context.Context, transaction *sql.Tx, courseCategory domain.Cour
 	return courseCategory
 }
 
-func Update(ctx context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory) domain.CourseCategory {
+func (repository *CourseCategoryRepositoryImpl) Update(ctx context.Context, transaction *sql.Tx, courseCategory domain.CourseCategory) domain.CourseCategory {
 
 	_, err := transaction.ExecContext(ctx, "UPDATE course_categories SET name=? WHERE id=?", courseCategory.Name, courseCategory.Id)
 	helper.PanicError(&err)
@@ -66,7 +66,7 @@ func Update(ctx context.Context, transaction *sql.Tx, courseCategory domain.Cour
 
 }
 
-func Delete(ctx context.Context, transaction *sql.Tx, id int64) {
+func (repository *CourseCategoryRepositoryImpl) Delete(ctx context.Context, transaction *sql.Tx, id int64) {
 
 	_, err := transaction.ExecContext(ctx, "DELETE FROM course_categories WHERE id=?", id)
 	helper.PanicError(&err)
