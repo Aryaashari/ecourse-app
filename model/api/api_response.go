@@ -1,11 +1,11 @@
 package api
 
 type InfoField struct {
-	Status  int
-	Message string
+	Status  int    `json:"status"`
+	Message string `json:"message"`
 }
 
 type ApiResponse struct {
-	Info InfoField
-	Data interface{}
+	Info InfoField   `json:"info"`
+	Data interface{} `json:"data"`
 }

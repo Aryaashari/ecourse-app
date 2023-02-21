@@ -25,6 +25,14 @@ type CourseCategoryServiceImpl struct {
 	Validate           *validator.Validate
 }
 
+func NewCourseCategoryService(courseCategoryRepo repository.CourseCategoryRepository, db *sql.DB, validate *validator.Validate) CourseCategoryService {
+	return &CourseCategoryServiceImpl{
+		CourseCategoryRepo: courseCategoryRepo,
+		DB:                 db,
+		Validate:           validate,
+	}
+}
+
 func (service *CourseCategoryServiceImpl) FindAll(ctx context.Context) []api.CourseCategoryResponse {
 	transaction, err := service.DB.Begin()
 	helper.PanicError(&err)

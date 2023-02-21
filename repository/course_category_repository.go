@@ -19,10 +19,15 @@ type CourseCategoryRepository interface {
 
 type CourseCategoryRepositoryImpl struct{}
 
-func FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.CourseCategory, error) {
+func NewCourseCategoryRepository() CourseCategoryRepository {
+	return &CourseCategoryRepositoryImpl{}
+}
+
+func (repository *CourseCategoryRepositoryImpl) FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.CourseCategory, error) {
 
 	rows, err := transaction.QueryContext(ctx, "SELECT id,name FROM course_categories WHERE id=?", id)
 	helper.PanicError(&err)
+	defer rows.Close()
 
 	var courseCategory domain.CourseCategory
 	if rows.Next() {
@@ -40,6 +45,7 @@ func (repository *CourseCategoryRepositoryImpl) FindAll(ctx context.Context, tra
 
 	rows, err := transaction.QueryContext(ctx, "SELECT id,name FROM course_categories")
 	helper.PanicError(&err)
+	defer rows.Close()
 
 	var courseCategories []domain.CourseCategory
 	for rows.Next() {

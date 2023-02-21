@@ -22,6 +22,12 @@ type CourseCategoryControllerImpl struct {
 	CourseCategoryService service.CourseCategoryService
 }
 
+func NewCourseCategoryController(courseCategoryService service.CourseCategoryService) CourseCategoryController {
+	return &CourseCategoryControllerImpl{
+		CourseCategoryService: courseCategoryService,
+	}
+}
+
 func (controller *CourseCategoryControllerImpl) Create(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	var courseCategoryCreateRequest api.CourseCategoryCreateRequest
 
