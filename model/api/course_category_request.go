@@ -5,6 +5,6 @@ type CourseCategoryCreateRequest struct {
 }
 
 type CourseCategoryUpdateRequest struct {
-	Id   int64  `validate:"required" json:"id"`
+	Id   int64  `json:"id"`
 	Name string `validate:"required,min=3,max=30" json:"name"`
 }

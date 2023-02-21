@@ -35,7 +35,7 @@ func (controller *CourseCategoryControllerImpl) Create(writer http.ResponseWrite
 
 	courseCategoryResponse := controller.CourseCategoryService.Create(request.Context(), courseCategoryCreateRequest)
 
-	apiResponse := helper.ApiResponseFormatter(200, "create course category success", courseCategoryResponse)
+	apiResponse := helper.ApiResponseFormatter(200, "success", "create course category success", courseCategoryResponse)
 
 	helper.HandleApiResponse(writer, apiResponse)
 }
@@ -51,7 +51,7 @@ func (controller *CourseCategoryControllerImpl) Update(writer http.ResponseWrite
 	courseCategoryUpdateRequest.Id = int64(id)
 	courseCategoryResponse := controller.CourseCategoryService.Update(request.Context(), courseCategoryUpdateRequest)
 
-	apiResponse := helper.ApiResponseFormatter(200, "update course category success", courseCategoryResponse)
+	apiResponse := helper.ApiResponseFormatter(200, "success", "update course category success", courseCategoryResponse)
 
 	helper.HandleApiResponse(writer, apiResponse)
 }
@@ -63,7 +63,7 @@ func (controller *CourseCategoryControllerImpl) Delete(writer http.ResponseWrite
 
 	controller.CourseCategoryService.Delete(request.Context(), int64(id))
 
-	apiResponse := helper.ApiResponseFormatter(200, "delete course category success", nil)
+	apiResponse := helper.ApiResponseFormatter(200, "success", "delete course category success", nil)
 
 	helper.HandleApiResponse(writer, apiResponse)
 }
@@ -71,7 +71,7 @@ func (controller *CourseCategoryControllerImpl) Delete(writer http.ResponseWrite
 func (controller *CourseCategoryControllerImpl) FindAll(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 	courseCategoryResponses := controller.CourseCategoryService.FindAll(request.Context())
 
-	apiResponse := helper.ApiResponseFormatter(200, "get all course categories success", courseCategoryResponses)
+	apiResponse := helper.ApiResponseFormatter(200, "success", "get all course categories success", courseCategoryResponses)
 
 	helper.HandleApiResponse(writer, apiResponse)
 }

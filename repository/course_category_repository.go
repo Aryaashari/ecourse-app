@@ -6,7 +6,6 @@ import (
 	"ecourse-app/helper"
 	"ecourse-app/model/domain"
 	"errors"
-	"strconv"
 )
 
 type CourseCategoryRepository interface {
@@ -34,7 +33,7 @@ func (repository *CourseCategoryRepositoryImpl) FindById(ctx context.Context, tr
 		err := rows.Scan(&courseCategory.Id, &courseCategory.Name)
 		helper.PanicError(&err)
 	} else {
-		return courseCategory, errors.New("category id " + strconv.Itoa(int(id)) + " not found")
+		return courseCategory, errors.New("course category not found")
 	}
 
 	return courseCategory, nil

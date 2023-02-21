@@ -3,6 +3,7 @@ package service
 import (
 	"context"
 	"database/sql"
+	"ecourse-app/exception"
 	"ecourse-app/helper"
 	"ecourse-app/model/api"
 	"ecourse-app/model/domain"
@@ -90,7 +91,9 @@ func (service *CourseCategoryServiceImpl) Update(ctx context.Context, request ap
 	defer helper.CommitRollback(transaction)
 
 	courseCategory, err := service.CourseCategoryRepo.FindById(ctx, transaction, request.Id)
-	helper.PanicError(&err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	courseCategory.Name = request.Name
 
@@ -106,7 +109,9 @@ func (service *CourseCategoryServiceImpl) Delete(ctx context.Context, id int64) 
 	defer helper.CommitRollback(transaction)
 
 	courseCategory, err := service.CourseCategoryRepo.FindById(ctx, transaction, id)
-	helper.PanicError(&err)
+	if err != nil {
+		panic(exception.NewNotFoundError(err.Error()))
+	}
 
 	service.CourseCategoryRepo.Delete(ctx, transaction, courseCategory.Id)
 }

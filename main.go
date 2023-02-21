@@ -3,6 +3,7 @@ package main
 import (
 	"ecourse-app/app"
 	"ecourse-app/controller"
+	"ecourse-app/exception"
 	"ecourse-app/helper"
 	"ecourse-app/repository"
 	"ecourse-app/service"
@@ -28,6 +29,8 @@ func main() {
 	router.POST("/course/categories", courseCategoryController.Create)
 	router.PUT("/course/categories/:courseCategoryId", courseCategoryController.Update)
 	router.DELETE("/course/categories/:courseCategoryId", courseCategoryController.Delete)
+
+	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{
 		Addr:    "localhost:3000",

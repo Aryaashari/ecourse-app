@@ -12,9 +12,10 @@ func ConvertToCourseCategoryResponse(courseCategory *domain.CourseCategory) api.
 	}
 }
 
-func ApiResponseFormatter(status int, message string, data interface{}) api.ApiResponse {
+func ApiResponseFormatter(code int, status string, message string, data interface{}) api.ApiResponse {
 	return api.ApiResponse{
 		Info: api.InfoField{
+			Code:    code,
 			Status:  status,
 			Message: message,
 		},
