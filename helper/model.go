@@ -12,6 +12,14 @@ func ConvertToCourseCategoryResponse(courseCategory *domain.CourseCategory) api.
 	}
 }
 
+func ConvertToAdminResponse(admin *domain.Admin) api.AdminResponse {
+	return api.AdminResponse{
+		Id:    admin.Id,
+		Name:  admin.Name,
+		Email: admin.Email,
+	}
+}
+
 func ApiResponseFormatter(code int, status string, message string, data interface{}) api.ApiResponse {
 	return api.ApiResponse{
 		Info: api.InfoField{

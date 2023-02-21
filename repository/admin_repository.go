@@ -11,7 +11,7 @@ import (
 type AdminRepository interface {
 	FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Admin, error)
 	FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain.Admin, error)
-	Create(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin
+	Insert(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin
 }
 
 type AdminRepositoryImpl struct{}
@@ -45,7 +45,7 @@ func FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain
 	}
 }
 
-func Create(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin {
+func Insert(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin {
 
 	result, err := transaction.ExecContext(ctx, "INSERT INTO admin(name,email,password) VALUES(?,?,?)", admin.Name, admin.Email, admin.Password)
 	helper.PanicError(&err)
