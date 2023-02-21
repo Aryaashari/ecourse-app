@@ -9,7 +9,6 @@ import (
 )
 
 type AdminRepository interface {
-	FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Admin, error)
 	FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain.Admin, error)
 	Insert(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin
 }
@@ -19,22 +18,6 @@ type AdminRepositoryImpl struct{}
 func NewAdminRepository() AdminRepository {
 	return &AdminRepositoryImpl{}
 }
-
-func (repository *AdminRepositoryImpl) FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Admin, error) {
-	rows, err := transaction.QueryContext(ctx, "SELECT id,name,email,password FROM admin WHERE id=?", id)
-	helper.PanicError(&err)
-	defer rows.Close()
-
-	var admin domain.Admin
-	if rows.Next() {
-		rows.Scan(&admin.Id, &admin.Name, &admin.Email, &admin.Password)
-		return admin, nil
-	} else {
-		return admin, errors.New("admin not found")
-	}
-
-}
-
 func (repository *AdminRepositoryImpl) FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain.Admin, error) {
 	rows, err := transaction.QueryContext(ctx, "SELECT id,name,email,password FROM admin WHERE email=?", email)
 	helper.PanicError(&err)

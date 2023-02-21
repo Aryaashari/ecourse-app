@@ -12,8 +12,8 @@ func ConvertToCourseCategoryResponse(courseCategory *domain.CourseCategory) api.
 	}
 }
 
-func ConvertToAdminResponse(admin *domain.Admin) api.AdminResponse {
-	return api.AdminResponse{
+func ConvertToAuthResponse(admin *domain.Admin) api.AuthResponse {
+	return api.AuthResponse{
 		Id:    admin.Id,
 		Name:  admin.Name,
 		Email: admin.Email,

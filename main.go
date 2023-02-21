@@ -30,6 +30,15 @@ func main() {
 	router.PUT("/course/categories/:courseCategoryId", courseCategoryController.Update)
 	router.DELETE("/course/categories/:courseCategoryId", courseCategoryController.Delete)
 
+	// Admin Authentication
+	adminRepo := repository.NewAdminRepository()
+	authService := service.NewAuthService(adminRepo, db, validate)
+	authController := controller.NewAuthController(authService)
+
+	router.POST("/admin/register", authController.Register)
+	router.POST("/admin/login", authController.Login)
+
+	// If has error in router
 	router.PanicHandler = exception.ErrorHandler
 
 	server := http.Server{

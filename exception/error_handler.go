@@ -13,10 +13,44 @@ func ErrorHandler(writer http.ResponseWriter, request *http.Request, err interfa
 		return
 	} else if validationError(writer, request, err) {
 		return
+	} else if conflictError(writer, request, err) {
+		return
+	} else if unauthorizedError(writer, request, err) {
+		return
 	}
 
 	internalServerError(writer, request, err)
 
+}
+
+func unauthorizedError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
+	exception, ok := err.(UnauthorizedError)
+	if ok {
+		writer.Header().Add("content-type", "application/json")
+		writer.WriteHeader(http.StatusUnauthorized)
+
+		apiResponse := helper.ApiResponseFormatter(http.StatusUnauthorized, "unauthorized", exception.Error, nil)
+		helper.HandleApiResponse(writer, apiResponse)
+
+		return true
+	}
+
+	return false
+}
+
+func conflictError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
+	exception, ok := err.(ConflictError)
+	if ok {
+		writer.Header().Add("content-type", "application/json")
+		writer.WriteHeader(http.StatusConflict)
+
+		apiResponse := helper.ApiResponseFormatter(http.StatusConflict, "conflict", exception.Error, nil)
+		helper.HandleApiResponse(writer, apiResponse)
+
+		return true
+	}
+
+	return false
 }
 
 func validationError(writer http.ResponseWriter, request *http.Request, err interface{}) bool {
