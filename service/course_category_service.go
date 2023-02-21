@@ -4,7 +4,7 @@ import (
 	"context"
 	"database/sql"
 	"ecourse-app/helper"
-	api "ecourse-app/model/api/course_category"
+	"ecourse-app/model/api"
 	"ecourse-app/model/domain"
 	"ecourse-app/repository"
 
@@ -13,7 +13,7 @@ import (
 
 type CourseCategoryService interface {
 	FindAll(ctx context.Context) []api.CourseCategoryResponse
-	FindById(ctx context.Context, id int64) api.CourseCategoryResponse // (api.CourseCategoryResponse, api.CourseResponse)
+	// FindById(ctx context.Context, id int64) api.CourseCategoryResponse // (api.CourseCategoryResponse, api.CourseResponse)
 	Create(ctx context.Context, request api.CourseCategoryCreateRequest) api.CourseCategoryResponse
 	Update(ctx context.Context, request api.CourseCategoryUpdateRequest) api.CourseCategoryResponse
 	Delete(ctx context.Context, id int64)
