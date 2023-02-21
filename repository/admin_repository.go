@@ -16,7 +16,11 @@ type AdminRepository interface {
 
 type AdminRepositoryImpl struct{}
 
-func FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Admin, error) {
+func NewAdminRepository() AdminRepository {
+	return &AdminRepositoryImpl{}
+}
+
+func (repository *AdminRepositoryImpl) FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Admin, error) {
 	rows, err := transaction.QueryContext(ctx, "SELECT id,name,email,password FROM admin WHERE id=?", id)
 	helper.PanicError(&err)
 	defer rows.Close()
@@ -31,7 +35,7 @@ func FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Admin,
 
 }
 
-func FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain.Admin, error) {
+func (repository *AdminRepositoryImpl) FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain.Admin, error) {
 	rows, err := transaction.QueryContext(ctx, "SELECT id,name,email,password FROM admin WHERE email=?", email)
 	helper.PanicError(&err)
 	defer rows.Close()
@@ -45,7 +49,7 @@ func FindByEmail(ctx context.Context, transaction *sql.Tx, email string) (domain
 	}
 }
 
-func Insert(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin {
+func (repository *AdminRepositoryImpl) Insert(ctx context.Context, transaction *sql.Tx, admin domain.Admin) domain.Admin {
 
 	result, err := transaction.ExecContext(ctx, "INSERT INTO admin(name,email,password) VALUES(?,?,?)", admin.Name, admin.Email, admin.Password)
 	helper.PanicError(&err)

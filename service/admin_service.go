@@ -15,13 +15,21 @@ import (
 
 type AdminService interface {
 	Create(ctx context.Context, request api.AdminCreateRequest) (api.AdminResponse, error)
-	FindByEmail(ctx context.Context, request api.AdminCreateRequest) api.AdminResponse
+	FindByEmail(ctx context.Context, email string) api.AdminResponse
 }
 
 type AdminServiceImpl struct {
 	AdminRepo repository.AdminRepository
 	DB        *sql.DB
-	Validate  validator.Validate
+	Validate  *validator.Validate
+}
+
+func NewAdminService(adminRepo repository.AdminRepository, db *sql.DB, validate *validator.Validate) AdminService {
+	return &AdminServiceImpl{
+		AdminRepo: adminRepo,
+		DB:        db,
+		Validate:  validate,
+	}
 }
 
 func (service *AdminServiceImpl) Create(ctx context.Context, request api.AdminCreateRequest) (api.AdminResponse, error) {
