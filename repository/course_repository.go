@@ -11,7 +11,6 @@ import (
 type CourseRepository interface {
 	FindAll(ctx context.Context, transaction *sql.Tx) ([]domain.Course, []domain.CourseCategory)
 	FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Course, error)
-	FindByCategoryId(ctx context.Context, transaction *sql.Tx, categoryId int64) (domain.Course, error)
 	Insert(ctx context.Context, transaction *sql.Tx, course domain.Course) domain.Course
 	Update(ctx context.Context, transaction *sql.Tx, course domain.Course) domain.Course
 	Delete(ctx context.Context, transaction *sql.Tx, id int64)
@@ -46,22 +45,6 @@ func (repository *CourseRepositoryImpl) FindAll(ctx context.Context, transaction
 
 func (repository *CourseRepositoryImpl) FindById(ctx context.Context, transaction *sql.Tx, id int64) (domain.Course, error) {
 	rows, err := transaction.QueryContext(ctx, "SELECT id,title,course_category_id FROM courses WHERE id=?", id)
-	helper.PanicError(err)
-	defer rows.Close()
-
-	var course domain.Course
-	if rows.Next() {
-		err := rows.Scan(&course.Id, &course.Title, &course.CourseCategoryId)
-		helper.PanicError(err)
-	} else {
-		return course, errors.New("course not found")
-	}
-
-	return course, nil
-}
-
-func (repository *CourseRepositoryImpl) FindByCategoryId(ctx context.Context, transaction *sql.Tx, courseCategoryId int64) (domain.Course, error) {
-	rows, err := transaction.QueryContext(ctx, "SELECT id,title,course_category_id FROM courses WHERE course_category_id=?", courseCategoryId)
 	helper.PanicError(err)
 	defer rows.Close()
 

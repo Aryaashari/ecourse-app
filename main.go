@@ -27,6 +27,7 @@ func main() {
 	courseCategoryController := controller.NewCourseCategoryController(courseCategoryService)
 
 	router.GET("/course/categories", courseCategoryController.FindAll)
+	router.GET("/course/categories/:courseCategoryId", courseCategoryController.FindById)
 	router.POST("/course/categories", courseCategoryController.Create)
 	router.PUT("/course/categories/:courseCategoryId", courseCategoryController.Update)
 	router.DELETE("/course/categories/:courseCategoryId", courseCategoryController.Delete)

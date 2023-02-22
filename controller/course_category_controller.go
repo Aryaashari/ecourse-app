@@ -15,7 +15,7 @@ type CourseCategoryController interface {
 	Update(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
 	Delete(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
 	FindAll(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
-	// FindById(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
+	FindById(writer http.ResponseWriter, request *http.Request, params httprouter.Params)
 }
 
 type CourseCategoryControllerImpl struct {
@@ -72,6 +72,17 @@ func (controller *CourseCategoryControllerImpl) FindAll(writer http.ResponseWrit
 	courseCategoryResponses := controller.CourseCategoryService.FindAll(request.Context())
 
 	apiResponse := helper.ApiResponseFormatter(200, "success", "get all course categories success", courseCategoryResponses)
+
+	helper.HandleApiResponse(writer, apiResponse)
+}
+
+func (controller *CourseCategoryControllerImpl) FindById(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
+	id, err := strconv.Atoi(params.ByName("courseCategoryId"))
+	helper.PanicError(err)
+
+	courseCategoryResponse := controller.CourseCategoryService.FindById(request.Context(), int64(id))
+
+	apiResponse := helper.ApiResponseFormatter(200, "success", "get detail course category success", courseCategoryResponse)
 
 	helper.HandleApiResponse(writer, apiResponse)
 }

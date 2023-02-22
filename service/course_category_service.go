@@ -14,7 +14,7 @@ import (
 
 type CourseCategoryService interface {
 	FindAll(ctx context.Context) []api.CourseCategoryResponse
-	// FindById(ctx context.Context, id int64) api.CourseCategoryResponse // (api.CourseCategoryResponse, api.CourseResponse)
+	FindById(ctx context.Context, id int64) api.CourseCategoryResponse
 	Create(ctx context.Context, request api.CourseCategoryCreateRequest) api.CourseCategoryResponse
 	Update(ctx context.Context, request api.CourseCategoryUpdateRequest) api.CourseCategoryResponse
 	Delete(ctx context.Context, id int64)
@@ -22,6 +22,7 @@ type CourseCategoryService interface {
 
 type CourseCategoryServiceImpl struct {
 	CourseCategoryRepo repository.CourseCategoryRepository
+	CourseRepo         repository.CourseRepository
 	DB                 *sql.DB
 	Validate           *validator.Validate
 }
@@ -50,16 +51,18 @@ func (service *CourseCategoryServiceImpl) FindAll(ctx context.Context) []api.Cou
 	return courseCategoryResponses
 }
 
-// func (service *CourseCategoryServiceImpl) FindById(ctx context.Context, id int64) api.CourseCategoryResponse {
-// 	transaction, err := service.DB.Begin()
-// 	helper.PanicError(err)
+func (service *CourseCategoryServiceImpl) FindById(ctx context.Context, id int64) api.CourseCategoryResponse {
+	transaction, err := service.DB.Begin()
+	helper.PanicError(err)
 
-// 	defer helper.CommitRollback(transaction)
+	defer helper.CommitRollback(transaction)
 
-// 	courseCategory, err := service.CourseCategoryRepo.FindById(ctx, transaction, id)
-// 	helper.PanicError(err)
+	courseCategory, err := service.CourseCategoryRepo.FindById(ctx, transaction, id)
+	helper.PanicError(err)
 
-// }
+	return helper.ConvertToCourseCategoryResponse(&courseCategory)
+
+}
 
 func (service *CourseCategoryServiceImpl) Create(ctx context.Context, request api.CourseCategoryCreateRequest) api.CourseCategoryResponse {
 	// Validation
