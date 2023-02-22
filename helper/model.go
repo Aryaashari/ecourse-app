@@ -28,6 +28,14 @@ func ConvertToCourseResponse(course *domain.Course, courseCategory *domain.Cours
 	}
 }
 
+func ConvertToUserResponse(user *domain.User) api.UserResponse {
+	return api.UserResponse{
+		Id:    user.Id,
+		Name:  user.Name,
+		Email: user.Email,
+	}
+}
+
 func ApiResponseFormatter(code int, status string, message string, data interface{}) api.ApiResponse {
 	return api.ApiResponse{
 		Info: api.InfoField{

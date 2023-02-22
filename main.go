@@ -51,6 +51,17 @@ func main() {
 	router.PUT("/courses/:courseId", courseController.Update)
 	router.DELETE("/courses/:courseId", courseController.Delete)
 
+	// Users
+	userRepository := repository.NewUserRepository()
+	userService := service.NewUserService(userRepository, db, validator)
+	userController := controller.NewUserController(userService)
+
+	router.GET("/users", userController.FindAll)
+	router.POST("/users", userController.Create)
+	router.GET("/users/:userId", userController.FindById)
+	router.PUT("/users/:userId", userController.Update)
+	router.DELETE("/users/:userId", userController.Delete)
+
 	// If has error in router
 	router.PanicHandler = exception.ErrorHandler
 

@@ -7,5 +7,6 @@ type UserCreateRequest struct {
 }
 
 type UserUpdateRequest struct {
+	Id   int64  `json:"id" validate:"required"`
 	Name string `json:"name" validate:"required"`
 }
