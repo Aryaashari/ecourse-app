@@ -18,7 +18,6 @@ import (
 
 type AuthService interface {
 	Register(ctx context.Context, request api.AuthRegisterRequest) api.AuthResponse
-	// FindByEmail(ctx context.Context, email string) api.AdminResponse
 	Login(ctx context.Context, request api.AuthLoginRequest) string // return token
 }
 
