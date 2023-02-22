@@ -12,4 +12,4 @@ List Fitur:
 - CRUD Peserta
 - CRUD Akses Kelas Peserta (belum seleasi, masih kebingungan di beberapa bagian)
 
-POSTMAN: https://identity.getpostman.com/handover/multifactor?user=11126416&handover_token=cd678ac9-fafd-4a3e-a9d0-d9d61e67f9c3
+POSTMAN: https://blue-station-521081.postman.co/documentation/11126416-3c152c24-3e1a-4c72-963f-031b817332ee/publish?workspaceId=18762073-112f-4930-8366-15df81d09073
