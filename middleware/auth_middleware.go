@@ -4,7 +4,6 @@ import (
 	"context"
 	"ecourse-app/config"
 	"ecourse-app/exception"
-	"ecourse-app/helper"
 	"fmt"
 	"net/http"
 	"strings"
@@ -35,7 +34,7 @@ func (middleware *AuthMiddleware) ServeHTTP(writer http.ResponseWriter, request 
 				panic(exception.NewUnauthorizedError("invalid token"))
 			}
 
-			tokenString := strings.Replace(authorization, "Bearer", "", -1)
+			tokenString := strings.Replace(authorization, "Bearer ", "", -1)
 
 			token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 				method, ok := token.Method.(*jwt.SigningMethodHMAC)
@@ -45,7 +44,9 @@ func (middleware *AuthMiddleware) ServeHTTP(writer http.ResponseWriter, request 
 
 				return config.JWT_KEY, nil
 			})
-			helper.PanicError(err)
+			if err != nil {
+				panic(exception.NewUnauthorizedError("invalid token"))
+			}
 
 			claims, ok := token.Claims.(jwt.MapClaims)
 			if !ok || !token.Valid {
