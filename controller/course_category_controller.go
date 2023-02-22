@@ -46,7 +46,7 @@ func (controller *CourseCategoryControllerImpl) Update(writer http.ResponseWrite
 	helper.HandleRequestBody(request, &courseCategoryUpdateRequest)
 
 	id, err := strconv.Atoi(params.ByName("courseCategoryId"))
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	courseCategoryUpdateRequest.Id = int64(id)
 	courseCategoryResponse := controller.CourseCategoryService.Update(request.Context(), courseCategoryUpdateRequest)
@@ -59,7 +59,7 @@ func (controller *CourseCategoryControllerImpl) Update(writer http.ResponseWrite
 func (controller *CourseCategoryControllerImpl) Delete(writer http.ResponseWriter, request *http.Request, params httprouter.Params) {
 
 	id, err := strconv.Atoi(params.ByName("courseCategoryId"))
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	controller.CourseCategoryService.Delete(request.Context(), int64(id))
 

@@ -39,10 +39,10 @@ func NewAuthService(adminRepo repository.AdminRepository, db *sql.DB, validate *
 func (service *AuthServiceImpl) Register(ctx context.Context, request api.AuthRegisterRequest) api.AuthResponse {
 	// Validation
 	err := service.Validate.Struct(request)
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	transaction, err := service.DB.Begin()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 	defer helper.CommitRollback(transaction)
 
 	// Check existing email, if email was exist then return error
@@ -53,7 +53,7 @@ func (service *AuthServiceImpl) Register(ctx context.Context, request api.AuthRe
 
 	// Encrypt Password
 	bytes, err := bcrypt.GenerateFromPassword([]byte(request.Password), 14)
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	admin := domain.Admin{
 		Name:     request.Name,
@@ -69,10 +69,10 @@ func (service *AuthServiceImpl) Login(ctx context.Context, request api.AuthLogin
 
 	// Validation
 	err := service.Validate.Struct(request)
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	transaction, err := service.DB.Begin()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 	defer helper.CommitRollback(transaction)
 
 	// Check existing email, if email not registered then return error
@@ -100,7 +100,7 @@ func (service *AuthServiceImpl) Login(ctx context.Context, request api.AuthLogin
 	// Generate Token
 	token := jwt.NewWithClaims(config.JWT_SIGNING_METHOD, claims)
 	signedToken, err := token.SignedString(config.JWT_KEY)
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	return signedToken
 }

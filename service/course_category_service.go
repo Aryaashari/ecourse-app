@@ -36,7 +36,7 @@ func NewCourseCategoryService(courseCategoryRepo repository.CourseCategoryReposi
 
 func (service *CourseCategoryServiceImpl) FindAll(ctx context.Context) []api.CourseCategoryResponse {
 	transaction, err := service.DB.Begin()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	defer helper.CommitRollback(transaction)
 
@@ -52,22 +52,22 @@ func (service *CourseCategoryServiceImpl) FindAll(ctx context.Context) []api.Cou
 
 // func (service *CourseCategoryServiceImpl) FindById(ctx context.Context, id int64) api.CourseCategoryResponse {
 // 	transaction, err := service.DB.Begin()
-// 	helper.PanicError(&err)
+// 	helper.PanicError(err)
 
 // 	defer helper.CommitRollback(transaction)
 
 // 	courseCategory, err := service.CourseCategoryRepo.FindById(ctx, transaction, id)
-// 	helper.PanicError(&err)
+// 	helper.PanicError(err)
 
 // }
 
 func (service *CourseCategoryServiceImpl) Create(ctx context.Context, request api.CourseCategoryCreateRequest) api.CourseCategoryResponse {
 	// Validation
 	err := service.Validate.Struct(request)
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	transaction, err := service.DB.Begin()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	defer helper.CommitRollback(transaction)
 
@@ -83,10 +83,10 @@ func (service *CourseCategoryServiceImpl) Create(ctx context.Context, request ap
 func (service *CourseCategoryServiceImpl) Update(ctx context.Context, request api.CourseCategoryUpdateRequest) api.CourseCategoryResponse {
 	// Validation
 	err := service.Validate.Struct(request)
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	transaction, err := service.DB.Begin()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	defer helper.CommitRollback(transaction)
 
@@ -104,7 +104,7 @@ func (service *CourseCategoryServiceImpl) Update(ctx context.Context, request ap
 
 func (service *CourseCategoryServiceImpl) Delete(ctx context.Context, id int64) {
 	transaction, err := service.DB.Begin()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 
 	defer helper.CommitRollback(transaction)
 

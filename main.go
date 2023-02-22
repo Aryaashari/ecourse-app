@@ -5,6 +5,7 @@ import (
 	"ecourse-app/controller"
 	"ecourse-app/exception"
 	"ecourse-app/helper"
+	"ecourse-app/middleware"
 	"ecourse-app/repository"
 	"ecourse-app/service"
 	"net/http"
@@ -43,9 +44,9 @@ func main() {
 
 	server := http.Server{
 		Addr:    "localhost:3000",
-		Handler: router,
+		Handler: middleware.NewAuthMiddleware(router),
 	}
 
 	err := server.ListenAndServe()
-	helper.PanicError(&err)
+	helper.PanicError(err)
 }
