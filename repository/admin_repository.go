@@ -25,7 +25,9 @@ func (repository *AdminRepositoryImpl) FindByEmail(ctx context.Context, transact
 
 	var admin domain.Admin
 	if rows.Next() {
-		rows.Scan(&admin.Id, &admin.Name, &admin.Email, &admin.Password)
+		err := rows.Scan(&admin.Id, &admin.Name, &admin.Email, &admin.Password)
+		helper.PanicError(err)
+
 		return admin, nil
 	} else {
 		return admin, errors.New("admin not found")

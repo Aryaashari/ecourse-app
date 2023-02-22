@@ -49,7 +49,9 @@ func (repository *CourseCategoryRepositoryImpl) FindAll(ctx context.Context, tra
 	var courseCategories []domain.CourseCategory
 	for rows.Next() {
 		var courseCategory domain.CourseCategory
-		rows.Scan(&courseCategory.Id, &courseCategory.Name)
+		err := rows.Scan(&courseCategory.Id, &courseCategory.Name)
+		helper.PanicError(err)
+
 		courseCategories = append(courseCategories, courseCategory)
 	}
 
